@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ОПД МИГ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      color: #000000;
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 90px 8%;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 60px 6%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 48px 5%;
+      }
+    }
+
+    .block-white {
+      background: #ffffff;
+      border-top-left-radius: 48px;
+      z-index: 2;
+    }
+
+    .block-purple {
+      background: #f3f4f8;
+      color: #000000;
+      border-top-right-radius: 48px;
+      z-index: 1;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 90vh;
+      padding-top: 100px;
+      padding-bottom: 80px;
+      position: relative;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .hero-bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      color: white;
+    }
+
+    .hero-content img {
+      height: 60px;
+      margin-bottom: 24px;
+      filter: brightness(0) invert(1);
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.5;
+      opacity: 0.95;
+      max-width: 520px;
+      margin-bottom: 8px;
+    }
+
+    .btn-hero {
+      margin-top: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: #3C006B;
+      color: white;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-hero:hover {
+      background: #2a004f;
+      transform: translateY(-3px);
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s ease;
+    }
+
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-sub {
+      color: #555;
+      max-width: 680px;
+      margin-bottom: 40px;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 28px;
+      }
+      .hero h1 {
+        font-size: 38px;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+      .section-sub {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 26px;
+      }
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 28px 22px;
+      border-radius: 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 500;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .card i {
+      font-size: 32px;
+      color: #3C006B;
+      min-width: 44px;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-block {
+      display: flex;
+      gap: 56px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .video-block video {
+      flex: 1.2;
+      min-width: 260px;
+      width: 100%;
+      border-radius: 28px;
+      background: #000;
+    }
+
+   
+
+    .video-text h2 {
+      margin-bottom: 18px;
+    }
+
+    .video-text p {
+      font-size: 18px;
+      color: #2c2c2c;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .video-block {
+        flex-direction: column;
+        gap: 32px;
+      }
+      .video-block video {
+        width: 100%;
+      }
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    .feature {
+      background: rgba(60, 0, 107, 0.05);
+      backdrop-filter: blur(2px);
+      padding: 30px 24px;
+      border-radius: 28px;
+      transition: 0.2s;
+      border: 1px solid rgba(60, 0, 107, 0.1);
+    }
+
+    .feature i {
+      font-size: 38px;
+      color: #3C006B;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .feature h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      color: #3a3a3a;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    @media (max-width: 850px) {
+      .cards, .features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .cards, .features {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 20px 18px;
+      }
+    }
+
+    .info-text {
+      margin-top: 20px;
+      font-size: 1.05rem;
+      color: #2d2d2d;
+      background: rgba(60, 0, 107, 0.02);
+      padding: 24px 28px;
+      border-radius: 28px;
+      border-left: 5px solid #3C006B;
+    }
+
+    .block-white p, .block-purple p {
+      font-size: 1.05rem;
+    }
+
+    .mt-2 {
+      margin-top: 20px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 28px 20px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+      transition: 0.25s;
+    }
+
+    .stat-card i {
+      font-size: 44px;
+      color: #3C006B;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .stat-card .stat-number {
+      font-size: 38px;
+      font-weight: 800;
+      color: #1a1a1a;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .stat-label {
+      font-size: 15px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer {
+      background: #1e1e2a;
+      color: #ccc;
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 14px;
+      border-top-right-radius: 40px;
+    }
+
+    footer a {
+      color: #bba9ff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero fade">
+    <video class="hero-bg-video" autoplay muted loop playsinline>
+      <source src="VideoMain.mp4" type="video/mp4">
+      Видео.
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img src="Logo.png" alt="ОПД МИГ логотип">
+      <h1>Одна точка — тысяча возможностей</h1>
+      <p>Доставка заказов в несколько кликов от ПВЗ прямо в дом без участия курьера.</p>
+    </div>
+  </section>
+
+  <section class="block-white fade">
+    <h2>Как это работает</h2>
+    <div class="section-sub">
+      Заказы, поступающие в ПВЗ, проходят сортировку и автономно доставляются к подъездам жителей.
+    </div>
+    
+    <div class="cards" style="margin-top: 40px;">
+      <div class="card"><i class="fa-solid fa-arrow-down-wide-short"></i> 1. Поступление в ПВЗ</div>
+      <div class="card"><i class="fa-solid fa-microchip"></i> 2. Автоматическая сортировка</div>
+      <div class="card"><i class="fa-solid fa-door-open"></i> 3. Доставка до подъезда</div>
+    </div>
+  </section>
+
+  <!-- Преимущества (фиолетовый блок) -->
+  <section class="block-purple fade">
+    <h2>Ключевые преимущества</h2>
+    <div class="section-sub">
+      Решение, которое меняет подход к логистике и повышает комфорт для всех участников рынка.
+    </div>
+    <div class="cards">
+      <div class="card"><i class="fa-solid fa-user-check"></i> Доставка прямо к двери 24/7, безопасность и экономия времени</div>
+      <div class="card"><i class="fa-solid fa-truck-fast"></i> Упрощение «последней мили», снижение издержек и возвратов</div>
+      <div class="card"><i class="fa-solid fa-chart-line"></i> Повышение ценности ЖК, конкурентное преимущество и технологичный статус</div>
+      <div class="card"><i class="fa-regular fa-clock"></i> Сокращение времени доставки до 70% — посылка оказывается у заказчиков в течение часа</div>
+      <div class="card"><i class="fa-solid fa-diagram-project"></i> Оптимизация логистических цепочек: меньше пробок, выбросов CO₂ и лишних перемещений</div>
+      <div class="card"><i class="fa-solid fa-shield"></i> Безопасное получение заказов: видеоконтроль, индивидуальные коды и термо-отсеки для продуктов</div>
+    </div>
+  </section>
+
+  <section class="block-white video-block fade">
+    <video autoplay muted loop playsinline>
+      <source src="Animation.mp4" type="video/mp4">
+      Видео.
+    </video>
+    <div class="video-text">
+      <h2>Посмотрите, как это работает</h2>
+      <p>Наглядная демонстрация маршрута заказа: от поступления в автоматизированный пункт выдачи внутри жилого комплекса до бесшовной доставки к двери. Роботизированная платформа, интеллектуальное распределение и мобильное приложение — всё в единой экосистеме.</p>
+      <p style="margin-top: 18px;"><i class="fa-regular fa-circle-check" style="color:#3C006B;"></i> Заказы любого размера, от документов до крупногабаритных товаров. Система подстраивается под архитектуру здания.</p>
+    </div>
+  </section>
+
+  <section class="block-purple fade">
+    <h2>Полная интеграция и гибкость</h2>
+    <div class="section-sub">
+      Технология ОПД МИГ легко встраивается в существующую инфраструктуру и готова к масштабированию.
+    </div>
+    <div class="features">
+      <div class="feature">
+        <i class="fa-solid fa-plug"></i>
+        <h3>Интеграция с маркетплейсами</h3>
+        <p>Ozon, Wildberries, Яндекс Маркет, СберМаркет и другие. API-шлюз моментально синхронизирует заказы, трекинг и статусы доставки в реальном времени.</p>
+      </div>
+      <div class="feature">
+        <i class="fa-solid fa-draw-polygon"></i>
+        <h3>Встраивание в архитектуру ЖК</h3>
+        <p>Модульные решения: от компактных постаматов до подземных логистических хабов. Не требует капремонта, адаптируется под новостройки и уже существующие комплексы.</p>
+      </div>
+      <div class="feature">
+        <i class="fa-solid fa-chart-simple"></i>
+        <h3>Масштабируемость решений</h3>
+        <p>Подходит для ЖК с разной численностью жителей. Легко расширять решения для разных домов.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Цифры и факты (белый блок) — улучшенная сетка -->
+  <section class="block-white fade">
+    <h2>ОПД МИГ в цифрах</h2>
+    <div class="section-sub">
+      Реальные результаты внедрения технологии в жилых комплексах-партнёрах.
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fa-solid fa-gauge-high"></i>
+        <div class="stat-number">&lt;20 мин</div>
+        <div class="stat-label">средняя доставка до двери</div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-solid fa-chart-line"></i>
+        <div class="stat-number">-67%</div>
+        <div class="stat-label">логистических расходов</div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-regular fa-building"></i>
+        <div class="stat-number">Интеграция</div>
+        <div class="stat-label">в новые дома</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function() {
+      // Intersection Observer для плавного появления блоков
+      const fadeElements = document.querySelectorAll('.fade');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -10px 0px" });
+      
+      fadeElements.forEach(el => observer.observe(el));
+
+      // Видео в hero — корректное воспроизведение и обработка ошибок
+      const heroVideo = document.querySelector('.hero-bg-video');
+      if (heroVideo) {
+        heroVideo.muted = true;
+        heroVideo.setAttribute('playsinline', '');
+        heroVideo.play().catch(e => {
+          console.log('Hero video autoplay blocked:', e);
+        });
+      }
+      const allVideos = document.querySelectorAll('video:not(.hero-bg-video)');
+      allVideos.forEach(vid => {
+        vid.muted = true;
+        vid.setAttribute('playsinline', '');
+        vid.play().catch(e => console.log('Video autoplay blocked:', e));
+        vid.addEventListener('click', () => {
+          if (vid.paused) vid.play();
+        });
+      });
+
+      const overlay = document.querySelector('.hero-overlay');
+      if (overlay) {
+        overlay.style.willChange = 'auto';
+      }
+    })();
+  </script>
+</body>
+</html>
